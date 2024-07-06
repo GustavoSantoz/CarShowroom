@@ -5,8 +5,8 @@ export default function Navbar() {
                 <img src="https://static.souenergy.com.br/logo/stores/1/Dimens_o-da-logo-da-Sou--180x60-px.png" alt="logo" className="w-50" />
             </div>
             <div className="flex items-center">
-                <a className="bg-orange text-black rounded-lg px-4 py-2 font-bold md:text-base sm:text-sm xl:text-xl text-xs" href="/ofertas">Ofertas</a>
-                <a className="bg-orange text-black rounded-lg px-4 py-2 font-bold md:text-base sm:text-sm xl:text-xl text-xs" href="/adm">Administração</a>
+                <a className="bg-orange text-black rounded-lg px-4 py-2 font-bold md:text-base sm:text-sm xl:text-xl text-xs" href="/ofertas">Offers</a>
+                <a className="bg-orange text-black rounded-lg px-4 py-2 font-bold md:text-base sm:text-sm xl:text-xl text-xs" href="/adm">Dashboard</a>
             </div>
         </nav>
     )
