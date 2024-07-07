@@ -39,8 +39,7 @@ jobs:
         working-directory: .
         run: |
           npm ci
-          npm run build
-          npm run build-storybook          
+          npm run build   
         shell: bash
         
       - name: Remove PR preview if closed without merge 
