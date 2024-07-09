@@ -75,3 +75,8 @@ Para executar o projeto localmente:
 ## Conclusão
 
 Este projeto visa demonstrar habilidades em desenvolvimento web utilizando ReactJS, Material UI e integração com APIs REST. Siga as orientações acima para garantir uma implementação bem-sucedida e alinhada aos requisitos especificados.
+
+## Links:
+
+[Vercel](car-showroom-puce.vercel.app)
+[Api Json-server](https://json-server-vercel-git-main-pascal-project.vercel.app/api/offers)
