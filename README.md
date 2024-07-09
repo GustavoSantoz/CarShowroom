@@ -27,7 +27,7 @@ Este projeto consiste na criação de uma aplicação web utilizando ReactJS com
 ## Tecnologias Utilizadas
 
 - **Frontend:** ReactJS, Material UI
-- **Backend:** API REST criada em PHP ou API Fake (ex: JSON-SERVER)
+- **Backend:** API FAKE usando (Json-server)
 - **Persistência de Dados:** Banco de dados ou armazenamento adequado para manter as informações das ofertas.
 
 ## Estrutura do Projeto
@@ -61,3 +61,17 @@ meu-projeto/
 ├── postcss.config.cjs
 ├── tailwind.config.js
 └── vite.config.js
+
+
+## Executando o Projeto
+
+Para executar o projeto localmente:
+
+1. Clone o repositório.
+2. Instale as dependências utilizando `npm install`.
+3. Inicie o servidor local com `npm run dev`.
+4. Acesse a aplicação em seu navegador através do endereço fornecido pelo servidor local.
+
+## Conclusão
+
+Este projeto visa demonstrar habilidades em desenvolvimento web utilizando ReactJS, Material UI e integração com APIs REST. Siga as orientações acima para garantir uma implementação bem-sucedida e alinhada aos requisitos especificados.
