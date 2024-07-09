@@ -10,6 +10,7 @@ const API_URL = 'https://json-server-vercel-git-main-pascal-project.vercel.app/a
 function AdminPage() {
   const [offers, setOffers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(null); // Estado para armazenar a oferta selecionada para edição
 
   useEffect(() => {
     fetchOffers();
@@ -25,7 +26,16 @@ function AdminPage() {
   };
 
   const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedOffer(null); // Limpar a oferta selecionada ao fechar o modal
+  };
+
+  const handleEditOffer = (index) => {
+    const offerToEdit = offers[index];
+    setSelectedOffer(offerToEdit); // Define a oferta selecionada para edição
+    handleOpenModal(); // Abre o modal de edição
+  };
 
   const handleAddOffer = async (newOffer) => {
     try {
@@ -37,16 +47,28 @@ function AdminPage() {
       });
 
       setOffers([...offers, response.data]);
-
-      handleCloseModal();
+      fetchOffers(); // Atualiza a lista de ofertas após adicionar uma nova
+      handleCloseModal(); // Fecha o modal após adicionar a nova oferta com sucesso
     } catch (error) {
       console.error('Erro ao adicionar oferta:', error);
     }
   };
 
+  const handleUpdateOffer = async (updatedOfferData) => {
+    try {
+      const response = await axios.put(`${API_URL}/offers/${selectedOffer.id}`, updatedOfferData);
 
-  const handleEditOffer = (index) => {
-    console.log('Editar oferta:', index, offers[index]);
+      // Atualiza o estado local com os dados da oferta editada
+      const updatedOffers = offers.map(offer =>
+        offer.id === selectedOffer.id ? response.data : offer
+      );
+      setOffers(updatedOffers);
+
+      handleCloseModal(); // Fecha o modal após a edição
+      console.log('Oferta editada com sucesso:', response.data);
+    } catch (error) {
+      console.error('Erro ao editar oferta:', error);
+    }
   };
 
   const handleDeleteOffer = async (index) => {
@@ -61,10 +83,6 @@ function AdminPage() {
       console.error('Erro ao deletar oferta:', error);
     }
   };
-
-
-
-
 
   return (
     <>
@@ -84,7 +102,16 @@ function AdminPage() {
         <OfferTable offers={offers} onEditOffer={handleEditOffer} onDeleteOffer={handleDeleteOffer} />
         <Modal open={isModalOpen} onClose={handleCloseModal}>
           <Box className="bg-white p-4 rounded shadow-lg max-w-md mx-auto mt-20">
-            <OfferForm onAddOffer={handleAddOffer} />
+            {selectedOffer ? (
+              <OfferForm
+                initialData={selectedOffer}
+                onSubmit={handleUpdateOffer}
+              />
+            ) : (
+              <OfferForm
+                onAddOffer={handleAddOffer}
+              />
+            )}
           </Box>
         </Modal>
         <Button
