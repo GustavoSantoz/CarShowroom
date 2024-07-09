@@ -8,12 +8,12 @@ import Offers from './pages/offers'
 function App() {
   return (
     <>
-       <Routes>
+      <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="*" element={<Login />} />
         <Route path="/adm" element={<Admin />} />
         <Route path="/offers" element={<Offers />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </>
   )
