@@ -1,0 +1,20 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "@/pages/Login.jsx"
+        },
+        {
+            "source": "/offers",
+            "destination": "@/pages/offers.jsx"
+        },
+        {
+            "source": "/home",
+            "destination": "@/pages/home.jsx"
+        },
+        {
+            "source": "/adm",
+            "destination": "@/pages/admin.jsx"
+        }
+    ]
+}
