@@ -5,7 +5,7 @@ import OfferForm from '../components/Structure/offerForm';
 import { Button, Modal, Box } from '@mui/material';
 import Navbar from '../components/Structure/navbar';
 
-const API_URL = 'https://json-server-vercel-git-main-pascal-project.vercel.app';
+const API_URL = 'https://json-server-vercel-git-main-pascal-project.vercel.app/api';
 
 function AdminPage() {
   const [offers, setOffers] = useState([]);
@@ -29,7 +29,7 @@ function AdminPage() {
 
   const handleAddOffer = async (newOffer) => {
     try {
-      const photosArray = typeof newOffer.photos === 'string' ? [newOffer.photos] : newOffer.push(photosArray);
+      const photosArray = typeof newOffer.photos === 'string' ? [newOffer.photos] : newOffer.photos;
 
       const response = await axios.post(`${API_URL}/offers`, {
         ...newOffer,
@@ -37,6 +37,7 @@ function AdminPage() {
       });
 
       setOffers([...offers, response.data]);
+
       handleCloseModal();
     } catch (error) {
       console.error('Erro ao adicionar oferta:', error);
@@ -48,11 +49,21 @@ function AdminPage() {
     console.log('Editar oferta:', index, offers[index]);
   };
 
-  const handleDeleteOffer = (index) => {
-    const newOffers = [...offers];
-    newOffers.splice(index, 1);
-    setOffers(newOffers);
+  const handleDeleteOffer = async (index) => {
+    const offerToDelete = offers[index];
+
+    try {
+      await axios.delete(`${API_URL}/offers/${offerToDelete.id}`);
+
+      const newOffers = offers.filter((offer, idx) => idx !== index);
+      setOffers(newOffers);
+    } catch (error) {
+      console.error('Erro ao deletar oferta:', error);
+    }
   };
+
+
+
 
 
   return (
