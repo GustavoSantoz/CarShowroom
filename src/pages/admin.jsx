@@ -29,7 +29,7 @@ function AdminPage() {
 
   const handleAddOffer = async (newOffer) => {
     try {
-      const photosArray = typeof newOffer.photos === 'string' ? [newOffer.photos] : newOffer.photos;
+      const photosArray = typeof newOffer.photos === 'string' ? [newOffer.photos] : newOffer.push(photosArray);
 
       const response = await axios.post(`${API_URL}/offers`, {
         ...newOffer,
@@ -42,6 +42,18 @@ function AdminPage() {
       console.error('Erro ao adicionar oferta:', error);
     }
   };
+
+
+  const handleEditOffer = (index) => {
+    console.log('Editar oferta:', index, offers[index]);
+  };
+
+  const handleDeleteOffer = (index) => {
+    const newOffers = [...offers];
+    newOffers.splice(index, 1);
+    setOffers(newOffers);
+  };
+
 
   return (
     <>
@@ -58,7 +70,7 @@ function AdminPage() {
           className="w-full p-2 mb-4 border rounded"
           placeholder="Buscar ofertas..."
         />
-        <OfferTable offers={offers} />
+        <OfferTable offers={offers} onEditOffer={handleEditOffer} onDeleteOffer={handleDeleteOffer} />
         <Modal open={isModalOpen} onClose={handleCloseModal}>
           <Box className="bg-white p-4 rounded shadow-lg max-w-md mx-auto mt-20">
             <OfferForm onAddOffer={handleAddOffer} />
