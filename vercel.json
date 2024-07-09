@@ -16,5 +16,14 @@
             "source": "/adm",
             "destination": "@/pages/admin.jsx"
         }
+    ],
+    "routes": [
+        {
+            "handle": "filesystem"
+        },
+        {
+            "src": "/api/.*",
+            "dest": "https://json-server-vercel-git-main-pascal-project.vercel.app/offers"
+        }
     ]
 }

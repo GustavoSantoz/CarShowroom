@@ -21,16 +21,50 @@ function OfferForm({ onAddOffer }) {
     };
 
     const handleFileChange = (e) => {
-        setOffer({ ...offer, photos: e.target.files });
+        // Convertendo os URLs das imagens em um array
+        const files = Array.from(e.target.files);
+        const photos = files.map(file => URL.createObjectURL(file));
+        setOffer({ ...offer, photos });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onAddOffer(offer);
+
+        // Criando o objeto no formato esperado
+        const newOffer = {
+            id: Math.floor(Math.random() * 1000) + 1, // Gerando um ID aleatório (simulação)
+            brand: offer.brand,
+            model: offer.model,
+            year: parseInt(offer.year),
+            price: `R$ ${offer.price}`,
+            color: offer.color,
+            mileage: `${offer.mileage} km`,
+            licensePlate: offer.licensePlate,
+            city: offer.city,
+            date: offer.date,
+            photos: offer.photos,
+        };
+
+        // Chamando a função externa para adicionar a oferta
+        onAddOffer(newOffer);
+
+        // Resetando o estado do formulário
+        setOffer({
+            brand: '',
+            model: '',
+            year: '',
+            price: '',
+            color: '',
+            mileage: '',
+            licensePlate: '',
+            city: '',
+            date: '',
+            photos: [],
+        });
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-4">
             <TextField
                 name="brand"
                 label="Marca"
@@ -80,7 +114,6 @@ function OfferForm({ onAddOffer }) {
             <TextField
                 name="mileage"
                 label="Quilometragem"
-                type="number"
                 fullWidth
                 margin="normal"
                 value={offer.mileage}
@@ -116,10 +149,11 @@ function OfferForm({ onAddOffer }) {
                 required
             />
             <input
-                type="file"
+                type="text"
                 name="photos"
-                multiple
                 onChange={handleFileChange}
+                placeholder="URL das Imagens"
+                className="w-full p-2 mb-4 border rounded"
                 required
             />
             <Button type="submit" variant="contained" color="primary">
