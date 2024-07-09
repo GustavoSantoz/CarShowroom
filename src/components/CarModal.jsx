@@ -1,60 +1,75 @@
 import React from 'react';
-import { Modal, Box, Typography, Grid } from '@mui/material';
+import { Modal, Box, Typography, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-const CarModal = ({ car, open, onClose }) => {
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-  };
+function CarModal({ car, open, onClose }) {
+    if (!car) return null;
 
-  return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          {car.brand} {car.model}
-        </Typography>
-        <Grid container spacing={2}>
-          {car.photos.map((photo, index) => (
-            <Grid item xs={6} key={index}>
-              <img src={photo} alt={`${car.model} ${index}`} width="100%" />
-            </Grid>
-          ))}
-        </Grid>
-        <Typography variant="body2" color="text.secondary">
-          Preço: {car.price}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Ano: {car.year}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Cor: {car.color}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Placa: {car.plate}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Cidade: {car.city}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Quilometragem: {car.mileage}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Data de Cadastro: {car.registrationDate}
-        </Typography>
-      </Box>
-    </Modal>
-  );
+    // Função para verificar e formatar as fotos
+    const renderPhotos = () => {
+        if (!car.photos) return null;
+
+        // Se 'photos' for uma string (URL única), converta para um array
+        const photosArray = typeof car.photos === 'string' ? [car.photos] : car.photos;
+
+        return (
+            <div className="flex space-x-4 mt-4">
+                {photosArray.map((photo, index) => (
+                    <img
+                        key={index}
+                        src={photo}
+                        alt={`Foto ${index + 1}`}
+                        className="max-w-full h-auto"
+                    />
+                ))}
+            </div>
+        );
+    };
+
+    return (
+        <Modal open={open} onClose={onClose}>
+            <Box className="bg-white p-4 rounded shadow-lg max-w-md mx-auto mt-20">
+                <IconButton
+                    aria-label="Fechar"
+                    onClick={onClose}
+                    className="absolute top-2 right-2"
+                >
+                    <CloseIcon />
+                </IconButton>
+                <Typography variant="h5" gutterBottom>
+                    Detalhes do Carro
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Marca: {car.brand}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Modelo: {car.model}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Ano: {car.year}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Preço: {car.price}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Cor: {car.color}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Quilometragem: {car.mileage}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Placa: {car.licensePlate}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Cidade: {car.city}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Data de Cadastro: {car.date}
+                </Typography>
+                {renderPhotos()}
+            </Box>
+        </Modal>
+    );
 }
 
 export default CarModal;
