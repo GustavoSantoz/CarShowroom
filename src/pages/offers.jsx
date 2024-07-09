@@ -4,6 +4,7 @@ import CarGrid from '../components/CarGrid';
 import CarModal from '../components/CarModal';
 import { ButtonGroup, Button } from '@mui/material';
 import axios from 'axios';
+import Navbar from '../components/Structure/navbar';
 
 const Offers = () => {
     const [view, setView] = useState('grid');
@@ -41,28 +42,31 @@ const Offers = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
-            {error && <p className="text-red-500">{error}</p>}
-            <ButtonGroup variant="contained" aria-label="outlined primary button group" className='gap-[6px]'>
-                <Button onClick={() => setView('grid')}>Grade</Button>
-                <Button onClick={() => setView('list')}>Lista</Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    href='home'
-                >
-                    Voltar para a Home
-                </Button>
-            </ButtonGroup>
-            {view === 'grid' ? (
-                <CarGrid cars={cars} onCardClick={handleCardClick} />
-            ) : (
-                <CarList cars={cars} onCardClick={handleCardClick} />
-            )}
-            {selectedCar && (
-                <CarModal car={selectedCar} open={true} onClose={handleCloseModal} />
-            )}
-        </div>
+        <>
+            <Navbar />
+            <div className="container mx-auto p-4 mt-16">
+                {error && <p className="text-red-500">{error}</p>}
+                <ButtonGroup variant="contained" aria-label="outlined primary button group" className='gap-[6px]'>
+                    <Button onClick={() => setView('grid')}>Grade</Button>
+                    <Button onClick={() => setView('list')}>Lista</Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        href='home'
+                    >
+                        Voltar para a Home
+                    </Button>
+                </ButtonGroup>
+                {view === 'grid' ? (
+                    <CarGrid cars={cars} onCardClick={handleCardClick} />
+                ) : (
+                    <CarList cars={cars} onCardClick={handleCardClick} />
+                )}
+                {selectedCar && (
+                    <CarModal car={selectedCar} open={true} onClose={handleCloseModal} />
+                )}
+            </div>
+        </>
     );
 };
 

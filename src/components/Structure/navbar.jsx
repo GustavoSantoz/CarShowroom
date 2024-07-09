@@ -20,7 +20,7 @@ const theme = createTheme({
 
 const Navbar = () => {
     return (
-        <AppBar position="fixed" color="default" elevation={3}>
+        <AppBar position="fixed" color="default" elevation={3} className='flex'>
             <Container maxWidth="lg">
                 <Toolbar className="flex justify-between items-center h-16">
                     <div className="flex items-center">
@@ -38,7 +38,7 @@ const Navbar = () => {
                             href="/offers"
                             className="text-black rounded-lg px-4 py-2 font-bold md:text-base sm:text-sm xl:text-xl text-xs mx-2"
                         >
-                            Offers
+                            Ofertas
                         </Button>
                         <Button
                             variant="contained"
@@ -47,7 +47,7 @@ const Navbar = () => {
                             href="/adm"
                             className="text-black rounded-lg px-4 py-2 font-bold md:text-base sm:text-sm xl:text-xl text-xs mx-2"
                         >
-                            Dashboard
+                            Administração
                         </Button>
                     </div>
                 </Toolbar>
